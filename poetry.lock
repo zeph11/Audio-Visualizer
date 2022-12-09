@@ -1,4 +1,15 @@
 [[package]]
+name = "glfw"
+version = "2.5.5"
+description = "A ctypes-based wrapper for GLFW3."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+preview = ["glfw-preview"]
+
+[[package]]
 name = "pyopengl"
 version = "3.1.6"
 description = "Standard OpenGL bindings for Python"
@@ -9,9 +20,20 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "159c105241b5938f52315d9253f511682de39ba41a5b46106b3712c2ced4b84d"
+content-hash = "ce46e1b8d42b224885e9e1b9bfbaa51882b9dc7b594c99c9f93e711e136f867d"
 
 [metadata.files]
+glfw = [
+    {file = "glfw-2.5.5-py2.py27.py3.py30.py31.py32.py33.py34.py35.py36.py37.py38-none-macosx_10_6_intel.whl", hash = "sha256:1c6ffe20350bd7931c4954720fbef498c2e9bce43ebd719c41de9e87c3fb7173"},
+    {file = "glfw-2.5.5-py2.py27.py3.py30.py31.py32.py33.py34.py35.py36.py37.py38-none-macosx_11_0_arm64.whl", hash = "sha256:1a33f391a22952de524c694a22cf0614d2949503519f2f7f58b0a3d2defdd9be"},
+    {file = "glfw-2.5.5-py2.py27.py3.py30.py31.py32.py33.py34.py35.py36.py37.py38-none-manylinux2010_i686.whl", hash = "sha256:9508e840f25e72e8efbdcc772b87b4c35cacd66c1c9e6bd0bbb08cded070ccc4"},
+    {file = "glfw-2.5.5-py2.py27.py3.py30.py31.py32.py33.py34.py35.py36.py37.py38-none-manylinux2010_x86_64.whl", hash = "sha256:3301de161e234fcc5f182b5157c3177f8e23ef35893060c47f12770c11a60932"},
+    {file = "glfw-2.5.5-py2.py27.py3.py30.py31.py32.py33.py34.py35.py36.py37.py38-none-manylinux2014_aarch64.whl", hash = "sha256:5ab10ad838d6096eeeb778a291aab3893eeb31abe8e356f8a8f0e338cd8d25c9"},
+    {file = "glfw-2.5.5-py2.py27.py3.py30.py31.py32.py33.py34.py35.py36.py37.py38-none-manylinux2014_x86_64.whl", hash = "sha256:1d73640474ee0fdfcb32dc255ba41ee932a5ed924cbf62c53577d6b26c204dd1"},
+    {file = "glfw-2.5.5-py2.py27.py3.py30.py31.py32.py33.py34.py35.py36.py37.py38-none-win32.whl", hash = "sha256:09ef5c8ab888d58db9e607af5525088db24fe43a39649f24a3447dad0f7a174d"},
+    {file = "glfw-2.5.5-py2.py27.py3.py30.py31.py32.py33.py34.py35.py36.py37.py38-none-win_amd64.whl", hash = "sha256:1e9fb75db4acbfc25ae3e7ab5b3cb1b760e927a2be49200cfe8ab7162db33df2"},
+    {file = "glfw-2.5.5.tar.gz", hash = "sha256:a282a2a742a0d01734dbde746dfc8f696f76373520494e40f39f60615408426d"},
+]
 pyopengl = [
     {file = "PyOpenGL-3.1.6-py2-none-any.whl", hash = "sha256:57c597d989178e1413002df6b923619f6d29807501dece1c60cc6f12c0c8e8a7"},
     {file = "PyOpenGL-3.1.6-py3-none-any.whl", hash = "sha256:a7139bc3e15d656feae1f7e3ef68c799941ed43fadc78177a23db7e946c20738"},
