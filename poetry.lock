@@ -71,11 +71,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-<<<<<<< HEAD
-content-hash = "ce46e1b8d42b224885e9e1b9bfbaa51882b9dc7b594c99c9f93e711e136f867d"
-=======
 content-hash = "c53ccceb920d65ebe82fa1cff74162bebba5ecc288d8e234cd4224876861a596"
->>>>>>> fdbe3c56ba20cce7744e321acdddd92d7248d79a
 
 [metadata.files]
 glfw = [
@@ -89,8 +85,6 @@ glfw = [
     {file = "glfw-2.5.5-py2.py27.py3.py30.py31.py32.py33.py34.py35.py36.py37.py38-none-win_amd64.whl", hash = "sha256:1e9fb75db4acbfc25ae3e7ab5b3cb1b760e927a2be49200cfe8ab7162db33df2"},
     {file = "glfw-2.5.5.tar.gz", hash = "sha256:a282a2a742a0d01734dbde746dfc8f696f76373520494e40f39f60615408426d"},
 ]
-<<<<<<< HEAD
-=======
 multipledispatch = [
     {file = "multipledispatch-0.6.0-py2-none-any.whl", hash = "sha256:407e6d8c5fa27075968ba07c4db3ef5f02bea4e871e959570eeb69ee39a6565b"},
     {file = "multipledispatch-0.6.0-py3-none-any.whl", hash = "sha256:a55c512128fb3f7c2efd2533f2550accb93c35f1045242ef74645fc92a2c3cba"},
@@ -189,7 +183,6 @@ pillow = [
     {file = "Pillow-9.3.0-pp38-pypy38_pp73-win_amd64.whl", hash = "sha256:073adb2ae23431d3b9bcbcff3fe698b62ed47211d0716b067385538a1b0f28b8"},
     {file = "Pillow-9.3.0.tar.gz", hash = "sha256:c935a22a557a560108d780f9a0fc426dd7459940dc54faa49d83249c8d3e760f"},
 ]
->>>>>>> fdbe3c56ba20cce7744e321acdddd92d7248d79a
 pyopengl = [
     {file = "PyOpenGL-3.1.6-py2-none-any.whl", hash = "sha256:57c597d989178e1413002df6b923619f6d29807501dece1c60cc6f12c0c8e8a7"},
     {file = "PyOpenGL-3.1.6-py3-none-any.whl", hash = "sha256:a7139bc3e15d656feae1f7e3ef68c799941ed43fadc78177a23db7e946c20738"},
