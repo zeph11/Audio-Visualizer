@@ -9,13 +9,13 @@ if not window:
     glfw.terminate()
     raise Exception("glfw window can not be created!")
 
-glfw.set_window_pos(window,100,100)
+glfw.set_window_pos(window, 100, 100)
 
 glfw.make_context_current(window)
 
 while not glfw.window_should_close(window):
-  glfw.poll_events()
+    glfw.poll_events()
 
-  glfw.swap_buffers(window)
+    glfw.swap_buffers(window)
 
 glfw.terminate()
