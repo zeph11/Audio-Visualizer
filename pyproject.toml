@@ -8,6 +8,8 @@ authors = ["avgt93 <abhijeetpoudel@gmail.com>"]
 python = "^3.10"
 PyOpenGL = "^3.1.6"
 glfw = "^2.5.5"
+pyrr = "^0.10.3"
+Pillow = "^9.3.0"
 
 [tool.poetry.dev-dependencies]
 
