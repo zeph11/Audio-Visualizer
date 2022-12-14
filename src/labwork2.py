@@ -4,81 +4,80 @@ from OpenGL.GL import *
 from OpenGL.GL.shaders import compileProgram, compileShader
 from helpers import toNVC
 
-RESOLUTION = 500
+resolution = 500
 
 
 def window_resize(window, width, height):
     glViewport(0, 0, width, height)
 
 
-def dda(start_x, start_y, end_x, end_y, resolution):
-    x_points = np.array([])
-    y_points = np.array([])
-    dx = end_x - start_x
-    dy = end_y - start_y
-    step = abs(dy)
-    if abs(dx) > abs(dy):
-        step = abs(dx)
-    new_x = start_x
-    new_y = start_y
-    x_inc = dx / step
-    y_inc = dy / step
+# #dda algorithm
 
-    for i in range(step):
-        x_points = np.append(x_points, new_x)
-        y_points = np.append(y_points, new_y)
-        new_x += x_inc
-        new_y += y_inc
 
-    return toNVC(x_points, y_points, resolution)
+def dda_algol(x0, y0, x1, y1, res):
+    dx = abs(x0 - x1)
+    dy = abs(y0 - y1)
+    steps = max(dx, dy)
+    xinc = dx / steps
+    yinc = dy / steps
+    x = float(x0)
+    y = float(y0)
+    x_coordinates = np.array([])
+    y_coordinates = np.array([])
+
+    for i in range(steps):
+        x_coordinates = np.append(x_coordinates, x)
+        y_coordinates = np.append(y_coordinates, y)
+        x = x + xinc
+        y = y + yinc
+    return toNVC(x_coordinates, y_coordinates, resolution)
 
 
 def main():
 
     vertex_src = """
-   #version 330
-
-   layout(location=0) in vec3 aPos;
-
-   void main(){
-
-    gl_Position =vec4(aPos,1.0f);
-
-   }
-
-  """
+    #version 330
+    layout (location=0) in vec3 a_position;
+    void main(){
+        gl_Position=vec4(a_position, 1.0f);
+    }
+    """
 
     fragment_src = """
 
-  #version 330
+    #version 330
 
-  out vec4 FragColor;
+    out vec4 FragColor;
 
-  void main(){
-    FragColor =vec4 (1.0f,1.0f,0.0f,1.0f);
+    void main(){
+        FragColor= vec4(1.0f,1.0f,0.0f,1.0f);
+    }
 
-  }
-  
-  """
+    """
+
+    # checking and initializing glfw library
     if not glfw.init():
         raise Exception("glfw cannot be initialised")
 
-    window = glfw.create_window(RESOLUTION, RESOLUTION, "LAB2", None, None)
+    # creating window, width, height, name, monitor, share
+    window = glfw.create_window(resolution, resolution, "LAB2", None, None)
 
+    # check if window
     if not window:
         glfw.terminate()
         raise Exception("glfw window cannot be created!")
 
+    #set size callback and window is resized
     glfw.set_window_size_callback(window, window_resize)
+    # context initializes opengl  a state machine that stores all data related to rendering
     glfw.make_context_current(window)
 
-    temp = dda(-150, -150, 150, 150, RESOLUTION)
+    dda_call = dda_algol(-50, -50, 150, 150, resolution)
 
-    vertices = np.array(temp, dtype=np.float32)
+    vertices = np.array(dda_call, dtype=np.float32)
 
-    render_count = round(len(temp) / 2)
+    render_count = round(len(dda_call) / 2)
 
-    print(temp)
     indices = np.array([i for i in range(1, render_count + 1)],
                        dtype=np.uint32)
 
@@ -99,11 +98,8 @@ def main():
 
     glUseProgram(shader)
 
-    print(render_count)
-
     while not glfw.window_should_close(window):
         glfw.poll_events()
-
         glDrawElements(GL_POINTS, len(indices), GL_UNSIGNED_BYTE, None)
 
         glfw.swap_buffers(window)
