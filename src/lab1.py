@@ -86,8 +86,8 @@ def main():
 
   bufferData= vertices+colors
   indicesData = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], dtype=np.uint32)
-  bufferData = np.array(bufferData,dtype=np.float32)
   vertices = np.array(vertices,dtype=np.float32)
+  bufferData = np.array(bufferData,dtype=np.float32)
   print(vertices)
  
   shader = compileProgram(compileShader(vertex_src,GL_VERTEX_SHADER),compileShader(fragment_src,GL_FRAGMENT_SHADER))

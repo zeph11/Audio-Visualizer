@@ -12,7 +12,7 @@ def toNVC(xList, yList, resolution):
   coordinateList = altList(xList,yList)
   return coordinateList
 
-def toNVC(lst,resolution):
+def toNVC2(lst,resolution):
   for i in range(len(lst)):
     lst[i] = (lst[i]) / (resolution)
 

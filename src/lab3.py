@@ -2,7 +2,7 @@ import glfw
 import numpy as np
 from OpenGL.GL import *
 from OpenGL.GL.shaders import compileProgram, compileShader
-from helpers import toNVC, altList
+from helpers import toNVC2, altList
 
 
 RESOLUTION = 500
@@ -34,7 +34,7 @@ def midPointCircle(x_centre, y_centre, r, resolution):
   y_points= [i+y_centre for i in y_points]
 
   midPointPoints= altList(x_points,y_points)+altList(neg_x_list,y_points)+altList(neg_x_list,neg_y_list)+altList(x_points,neg_y_list)+altList(y_points,x_points)+altList(neg_y_list,x_points)+altList(neg_y_list,neg_x_list)+altList(y_points,neg_x_list)
-  return toNVC(midPointPoints,resolution)
+  return toNVC2(midPointPoints,resolution)
 
 
 def main():
@@ -82,7 +82,7 @@ def main():
  
   vertices = np.array(temp,dtype=np.float32)
 
-  render_count=round(len(temp) )
+  render_count=round(len(temp))
 
   print(temp)
   indices = np.array([i for i in range(1,render_count+1)], dtype=np.uint32)
