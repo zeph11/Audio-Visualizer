@@ -27,6 +27,11 @@ void main(){
 }
 """
 
+
+def window_resize(window, width, height):
+    glViewport(0, 0, width, height)
+
+
 # checking and initializing glfw library
 if not glfw.init():
     raise Exception("glfw cannot be initialized")
@@ -41,6 +46,9 @@ if not window:
     raise Exception("window cannot be created")
 
 glfw.set_window_pos(window, 400, 300)
+
+#set size callback and window is resized
+glfw.set_window_size_callback(window, window_resize)
 
 # context initializes opengl  a state machine that stores all data related to rendering
 glfw.make_context_current(window)
@@ -83,6 +91,8 @@ vertices = [
     0,
 ]
 
+indices = []
+
 colors = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
 
 vertices = np.array(vertices, dtype=np.float32)
@@ -96,6 +106,7 @@ colors = np.array(colors, dtype=np.float32)
 shader = compileProgram(compileShader(vertex_src, GL_VERTEX_SHADER),
                         compileShader(fragment_src, GL_FRAGMENT_SHADER))
 
+#initializing VBO
 vertex_buffer_obj = glGenBuffers(1)
 
 glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_obj)
@@ -109,6 +120,8 @@ glBufferData(GL_ARRAY_BUFFER, vertices.nbytes, vertices, GL_STATIC_DRAW)
 # glBufferData(GL_ARRAY_BUFFER, vertices2.nbytes, vertices2, GL_STATIC_DRAW)
 
 # position = glGetAttribLocation(shader, "a_position")
+
+#initializing EBO
 
 glEnableVertexAttribArray(0)
 
