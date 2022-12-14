@@ -10,26 +10,26 @@ RESOLUTION = 800
 def window_resize(window, width, height):
     glViewport(0,0,width,height)
 
-def dda(start_x,start_y,end_x,end_y, resolution):
-  x_points = []
-  y_points = []
-  dx=end_x-start_x
-  dy=end_y-start_y
-  step=abs(dy)
-  if abs(dx)>abs(dy): 
-    step=abs(dx)
-  new_x=start_x
-  new_y=start_y
-  x_inc=dx/step
-  y_inc=dy/step
+# def dda(start_x,start_y,end_x,end_y, resolution):
+#   x_points = []
+#   y_points = []
+#   dx=end_x-start_x
+#   dy=end_y-start_y
+#   step=abs(dy)
+#   if abs(dx)>abs(dy): 
+#     step=abs(dx)
+#   new_x=start_x
+#   new_y=start_y
+#   x_inc=dx/step
+#   y_inc=dy/step
 
-  for i in range(step):
-    x_points.append(new_x)
-    y_points.append(new_y)
-    new_x += x_inc
-    new_y += y_inc
+#   for i in range(step):
+#     x_points.append(new_x)
+#     y_points.append(new_y)
+#     new_x += x_inc
+#     new_y += y_inc
 
-  return toNVC(x_points,y_points,resolution)
+#   return toNVC(x_points,y_points,resolution)
 
 # def mp(x0, y0, x1, y1, res):
 #   dx = x1 - x0
@@ -67,29 +67,29 @@ def dda(start_x,start_y,end_x,end_y, resolution):
 #         x = x + 1
 #   return toNVC(x_coordinates, y_coordinates, res)
 
-# def bh(x_start, y_start, x_end, y_end, res):
-#   dx = abs(x_end - x_start)
-#   dy = abs(y_end - y_start)
-#   pk = 2 * dy - dx
-#   x_coordinates = np.array([])
-#   y_coordinates = np.array([])
-#   for i in range(0, dx + 1):
-#     x_coordinates = np.append(x_coordinates, x_start)
-#     y_coordinates = np.append(y_coordinates, y_start)
-#     if x_start < x_end:
-#      x_start = x_start + 1
+def bh(x_start, y_start, x_end, y_end, res):
+  dx = abs(x_end - x_start)
+  dy = abs(y_end - y_start)
+  pk = 2 * dy - dx
+  x_coordinates = np.array([])
+  y_coordinates = np.array([])
+  for i in range(0, dx + 1):
+    x_coordinates = np.append(x_coordinates, x_start)
+    y_coordinates = np.append(y_coordinates, y_start)
+    if x_start < x_end:
+     x_start = x_start + 1
 
-#     else:
-#      x_start = x_start - 1
-#     if pk < 0:
-#       pk = pk + 2 * dy
-#     else:
-#       if y_start < y_end:
-#         y_start = y_start + 1
-#       else:
-#        y_start = y_start - 1
-#       pk = pk + 2 * dy - 2 * dx
-#   return toNVC(x_coordinates, y_coordinates, res)
+    else:
+     x_start = x_start - 1
+    if pk < 0:
+      pk = pk + 2 * dy
+    else:
+      if y_start < y_end:
+        y_start = y_start + 1
+      else:
+       y_start = y_start - 1
+      pk = pk + 2 * dy - 2 * dx
+  return toNVC(x_coordinates, y_coordinates, res)
 
 
 def main():
@@ -129,16 +129,16 @@ def main():
     raise Exception("glfw window cannot be created!")
 
   
-  glfw.set_window_pos(window,100,100)
+  # glfw.set_window_pos(window,100,100)
 
   glfw.set_window_size_callback(window,window_resize)
   glfw.make_context_current(window)
 
-  temp = dda(-500,-500,1500,1500,RESOLUTION)
+  temp = bh(-500,-500,1500,1500,RESOLUTION)
  
   vertices = np.array(temp,dtype=np.float32)
 
-  render_count=round(len(temp)/2 )
+  render_count=round(len(temp) )
 
   print(temp)
   indices = np.array([i for i in range(1,render_count+1)], dtype=np.uint32)
@@ -154,7 +154,7 @@ def main():
   glBufferData(GL_ELEMENT_ARRAY_BUFFER,indices.nbytes,indices,GL_STATIC_DRAW)
 
   glEnableVertexAttribArray(0)
-  glVertexAttribPointer(0,2,GL_FLOAT,GL_FALSE,0,ctypes.c_void_p(0))
+  glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,25,ctypes.c_void_p(0))
 
   glUseProgram(shader)
 
