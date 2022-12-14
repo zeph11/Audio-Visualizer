@@ -4,91 +4,115 @@ from OpenGL.GL import *
 from OpenGL.GL.shaders import compileProgram, compileShader
 
 
+def window_resize(window, width, height):
+    glViewport(0,0,width,height)
+    
 def main():
 
   vertex_src = """
   #version 330 
 
   layout(location=0) in vec3 aPos;
-  layout(location =1) in vec3 aPos2;
+  layout(location=1) in vec3 aColor;
+
+  out vec3 vColor;
 
   void main(){
       gl_Position = vec4(aPos,1.0);
-      gl_Position = vec4(aPos2,1.0);
+      vColor= aColor;
       }
   """
 
   fragment_src = """
   #version 330 
 
+  in vec3 vColor;
   out vec4 FragColor;
 
   void main(){
-      FragColor = vec4(0.0f, 0.0f, 1.0f, 0.0f);
+      FragColor = vec4(vColor, 0.0f);
     
   }
   """
-  def window_resize(window, width, height):
-    glViewport(0,0,width,height)
-
+  
   if not glfw.init():
       raise Exception("glfw can not be initialized!")
 
-  window = glfw.create_window(1280, 720, "LAB1", None, None)
+  window = glfw.create_window(500, 500, "LAB1", None, None)
 
   if not window:
       glfw.terminate()
       raise Exception("glfw window can not be created!")
 
-  glfw.set_window_pos(window,100,100)
+  # glfw.set_window_pos(window,100,100)
   glfw.set_window_size_callback(window,window_resize)
-
   glfw.make_context_current(window)
 
-  vertices = [-0.3,0.7,0,
-              -0.3,-0.7,0,
-              0.5,-0.7,0,
-              -0.0,0.0,0,
-               0.5,0.0,0]
+  vertices = [
+        #1st
+        -0.30000000000000004, 0.44999999999999996,0,
+        -0.30000000000000004, -0.012968750000000029,0,
+        0.43124999999999997, -0.012968750000000029,0,
+        #2nd
+        -0.30000000000000004, 0.25625,0,
+        -0.30000000000000004, -0.4501562500000001,0,
+        0.40937500000000004, -0.4501562500000001,0,
+        #3rd
+        -0.27326877, 0.4015625,0,
+        -0.27326877, 0.014062500000000033,0,
+        0.34437500000000004, 0.014062500000000033,0,
+        #4th
+        -0.27390625, 0.19890625000000003,0,
+        -0.27390625, -0.4223437499999999,0,
+        0.34421874999999985, -0.4223437499999999,0,
+    ]
+  colors = [
+            #1st
+            0,0,1,
+            0,0,1,
+            0,0,1,
+            #2nd
+            0,0,1,
+            0,0,1,
+            0,0,1,
+            #3rd
+            1,0,0,
+            1,0,0,
+            1,0,0,
+            #4th
+            1,0,0,
+            1,0,0,
+            1,0,0,]
 
-  vertices2 = [ i*0.5 for i in vertices]
-
-  # colors = [1,0,0,
-  #           0.5,0,1,
-  #           0,0.5,
-  #           1,0,0.5,
-  #           1,0,0.5,]
-
+  bufferData= vertices+colors
+  indicesData = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], dtype=np.uint32)
+  bufferData = np.array(bufferData,dtype=np.float32)
   vertices = np.array(vertices,dtype=np.float32)
-  vertices2 = np.array(vertices2,dtype=np.float32)
-  # colors = np.array(colors,dtype=np.float32)
-
+  print(vertices)
+ 
   shader = compileProgram(compileShader(vertex_src,GL_VERTEX_SHADER),compileShader(fragment_src,GL_FRAGMENT_SHADER))
-  # shader = compileProgram(compileShader(vertex_src,GL_VERTEX_SHADER),compileShader(fragment_src,GL_FRAGMENT_SHADER))
+
   vertex_buffer_object = glGenBuffers(1)
   glBindBuffer(GL_ARRAY_BUFFER,vertex_buffer_object)
-  glBufferData(GL_ARRAY_BUFFER,vertices.nbytes,vertices,GL_STATIC_DRAW)
+  glBufferData(GL_ARRAY_BUFFER,bufferData.nbytes,bufferData,GL_STREAM_DRAW)
 
-  vertex2_buffer_object = glGenBuffers(1)
-  glBindBuffer(GL_ARRAY_BUFFER,vertex2_buffer_object)
-  glBufferData(GL_ARRAY_BUFFER,vertices2.nbytes,vertices2,GL_STATIC_DRAW)
+  element_buffer_object = glGenBuffers(1)
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,element_buffer_object)
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER,indicesData.nbytes,indicesData,GL_STREAM_DRAW)
 
-  
   glEnableVertexAttribArray(0)
   glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,ctypes.c_void_p(0))
-
+  
   glEnableVertexAttribArray(1)
-  glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,0,ctypes.c_void_p(0))
+  glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,0,ctypes.c_void_p(vertices.nbytes))
 
   glUseProgram(shader)
   glClearColor(0,0.1,0.1,0)
 
   while not glfw.window_should_close(window):
     glfw.poll_events()
-
     glClear(GL_COLOR_BUFFER_BIT)
-    glDrawArrays( GL_LINE_LOOP,0,5)
-
+    glDrawElements(GL_TRIANGLES,len(indicesData),GL_UNSIGNED_INT,None)
     glfw.swap_buffers(window)
 
   glfw.terminate()
