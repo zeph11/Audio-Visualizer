@@ -2,7 +2,7 @@ import glfw
 import numpy as np
 from OpenGL.GL import *
 from OpenGL.GL.shaders import compileProgram, compileShader
-from helpers import toNVC
+from Luniva.helpers import toNVC
 
 RESOLUTION = 800
 

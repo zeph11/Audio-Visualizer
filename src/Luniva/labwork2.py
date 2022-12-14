@@ -11,34 +11,26 @@ def window_resize(window, width, height):
     glViewport(0, 0, width, height)
 
 
-#dda algorithm
-def dda_algol(x0, y0, x1, y1, resolution):
-    x_points = np.array([])
-    y_points = np.array([])
-    change_in_x = x1 - x0
-    change_in_y = y1 - y0
+# #dda algorithm
 
-    step = max(change_in_x, change_in_y)
-    # if abs(change_in_x) > abs(change_in_y):
-    #     step = abs(change_in_x)
 
-    # if abs(change_in_y) > abs(change_in_x):
-    #     step = abs(change_in_y)
+def dda_algol(x0, y0, x1, y1, res):
+    dx = abs(x0 - x1)
+    dy = abs(y0 - y1)
+    steps = max(dx, dy)
+    xinc = dx / steps
+    yinc = dy / steps
+    x = float(x0)
+    y = float(y0)
+    x_coordinates = np.array([])
+    y_coordinates = np.array([])
 
-    new_x = x0
-    new_y = y0
-
-    x_increament = change_in_x / step
-    y_increament = change_in_y / step
-
-    for i in range(step):
-        x_points = np.append(x_points, new_x)
-        y_points = np.append(y_points, new_y)
-
-        new_x += x_increament
-        new_y = y_increament
-
-    return toNVC(x_points, y_points, resolution)
+    for i in range(steps):
+        x_coordinates = np.append(x_coordinates, x)
+        y_coordinates = np.append(y_coordinates, y)
+        x = x + xinc
+        y = y + yinc
+    return toNVC(x_coordinates, y_coordinates, resolution)
 
 
 def main():
@@ -80,7 +72,7 @@ def main():
     # context initializes opengl  a state machine that stores all data related to rendering
     glfw.make_context_current(window)
 
-    dda_call = dda_algol(-50, -50, 50, 50, resolution)
+    dda_call = dda_algol(-250, -250, 350, 350, resolution)
 
     vertices = np.array(dda_call, dtype=np.float32)
 
@@ -102,7 +94,7 @@ def main():
                  GL_STATIC_DRAW)
 
     glEnableVertexAttribArray(0)
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(0))
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 25, ctypes.c_void_p(0))
 
     glUseProgram(shader)
 
