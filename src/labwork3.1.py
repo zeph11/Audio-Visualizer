@@ -69,7 +69,8 @@ def main():
     if not glfw.init():
         raise Exception("glfw cannot be initialised")
 
-    window = glfw.create_window(RESOLUTION, RESOLUTION, "LAB2", None, None)
+    window = glfw.create_window(RESOLUTION, RESOLUTION, "Circle Drawing", None,
+                                None)
 
     if not window:
         glfw.terminate()
@@ -80,7 +81,7 @@ def main():
     glfw.set_window_size_callback(window, window_resize)
     glfw.make_context_current(window)
 
-    temp = midPointCircle(0, 0, 130, RESOLUTION)
+    temp = midPointCircle(150, 150, 130, RESOLUTION)
 
     vertices = np.array(temp, dtype=np.float32)
 

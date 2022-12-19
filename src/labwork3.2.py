@@ -22,15 +22,7 @@ def ellipse_algo(xc, yc, rx, ry, resolution):
     while (dx < dy):
         x_coordinates.append(x)
         y_coordinates.append(y)
-        # x_coordinates = np.append(x_coordinates, x + xc)
-        # x_coordinates = np.append(x_coordinates, -x + xc)
-        # x_coordinates = np.append(x_coordinates, x + xc)
-        # x_coordinates = np.append(x_coordinates, -x + xc)
 
-        # y_coordinates = np.append(y_coordinates, y + yc)
-        # y_coordinates = np.append(y_coordinates, y + yc)
-        # y_coordinates = np.append(y_coordinates, -y + yc)
-        # y_coordinates = np.append(y_coordinates, -y + yc)
         if (pk1 < 0):
             x = x + 1
             dx = dx + (2 * ry * ry)
@@ -46,14 +38,7 @@ def ellipse_algo(xc, yc, rx, ry, resolution):
     while (y >= 0):
         x_coordinates.append(x)
         y_coordinates.append(y)
-        # x_coordinates = np.append(x_coordinates, x + xc)
-        # x_coordinates = np.append(x_coordinates, -x + xc)
-        # x_coordinates = np.append(x_coordinates, x + xc)
-        # x_coordinates = np.append(x_coordinates, -x + xc)
-        # y_coordinates = np.append(y_coordinates, y + yc)
-        # y_coordinates = np.append(y_coordinates, y + yc)
-        # y_coordinates = np.append(y_coordinates, -y + yc)
-        # y_coordinates = np.append(y_coordinates, -y + yc)
+
         if (pk2 > 0):
             y -= 1
             dy = dy - (2 * rx * rx)
