@@ -97,7 +97,7 @@ def main(transformation):
   out vec4 FragColor;
 
   void main(){
-      FragColor = vec4(vColor,0.0f);
+      FragColor = vec4(vColor,0.8f);
     
   }
   """
@@ -144,29 +144,36 @@ def main(transformation):
 
     colors = [
         0.0,
-        1.0,
-        0.0,
-        1.0,
         0.0,
         0.0,
+        
+        1.0,
+        0.8,
         0.0,
+        
         0.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
-        1.0,
+        0.5,
         0.0,
-        0.0,
-        0.0,
+        
         1.0,
         0.0,
+        0.5,
+        
+        0.8,
+        0.5,
+        0.5,
+        
         0.0,
+        0.8,
+        0.5,
+        
         0.0,
+        0.8,
+        0.0,
+        
         1.0,
-        1.0,
-        1.0,
-        1.0,
+        0.6,
+        0.0,
     ]
 
     indices = [
@@ -249,6 +256,5 @@ def main(transformation):
         glfw.swap_buffers(window)
 
     glfw.terminate()
-
 
 main(transformation)

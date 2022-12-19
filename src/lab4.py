@@ -11,92 +11,44 @@ def window_resize(window, width, height):
 
 
 RESOLUTION = 800
-rotation = np.array(
+
+shearing = np.array(
     [
-        np.cos((np.pi / 180) * 45),  # D1
-        np.sin((np.pi / 180) * 45),
+        1.0,  # D1
+        0.8,  # ShearX
         0.0,
         0.0,
-        np.sin(-(np.pi / 180) * 45),
-        np.cos((np.pi / 180) * 45),  # D2
+        0.0,  # ShearY
+        1.0,  # D2
         0.0,
         0.0,
         0.0,
         0.0,
-        1.0,
+        0.0,
         0.0,
         0.0,
         0.0,
         0.0,
         1.0,
     ],
-    dtype=np.float32,
+    np.float32,
 )
-
-translation = np.array(
-    [
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-        0.0,
-        0.5,
-        0.5,
-        0.0,
-        1.0,
-    ],
-    dtype=np.float32,
-)
-
-scaling = np.array(
-    [
-        2.0,  # D1
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        2.0,  # D2
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,  # D3
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-    ],
-    dtype=np.float32,
-)
-
 
 def main(transformation):
 
     vertex_src = """
   #version 330 
-
   layout(location=0) in vec3 aPos;
-  uniform mat4 transformation;
-
+  uniform mat4 transform;
   void main(){
-      gl_Position = transformation * vec4(aPos,1.0);
+      gl_Position = transform * vec4(aPos,1.0);
   
       }
   """
 
     fragment_src = """
   #version 330 
-
   out vec4 FragColor;
-
   void main(){
       FragColor = vec4(1.0f,0.0f,0.3f,0.0f);
     
@@ -127,6 +79,7 @@ def main(transformation):
         -0.4223437499999999,
         0,
     ]
+    
     vertices = np.array(vertices, dtype=np.float32)
     indices = [1, 2, 3]
     indices = np.array(indices, dtype=np.uint32)
@@ -142,7 +95,8 @@ def main(transformation):
 
     element_buffer_object = glGenBuffers(1)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer_object)
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.nbytes, indices, GL_STREAM_DRAW)
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.nbytes, indices,
+                 GL_STREAM_DRAW)
 
     glEnableVertexAttribArray(0)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(0))
@@ -154,11 +108,11 @@ def main(transformation):
 
         glfw.poll_events()
 
-        glUniformMatrix4fv(transformation_location, 1, GL_FALSE, transformation)
+        glUniformMatrix4fv(transformation_location, 1, GL_FALSE,
+                           transformation)
         glDrawElements(GL_TRIANGLES, len(indices), GL_UNSIGNED_INT, None)
         glfw.swap_buffers(window)
 
     glfw.terminate()
 
-
-main(scaling)
+main(shearing)
