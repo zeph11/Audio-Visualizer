@@ -79,8 +79,6 @@ def main():
 
   temp = bh(-250,250,250,250,RESOLUTION)
 
-
- 
   vertices = np.array(temp,dtype=np.float32)
 
   render_count=round(len(temp)/2 )

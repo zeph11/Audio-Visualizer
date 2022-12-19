@@ -17,4 +17,4 @@ def toNVC2(lst, resolution):
     for i in range(len(lst)):
         lst[i] = (lst[i]) / (resolution)
 
-    return lst
+        return lst

@@ -2,7 +2,7 @@ import glfw
 import numpy as np
 from OpenGL.GL import *
 from OpenGL.GL.shaders import compileProgram, compileShader
-from helpers import toNVC, altList
+from helpers import toNVC2, altList
 
 RESOLUTION = 500
 

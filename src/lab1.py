@@ -4,6 +4,7 @@ from OpenGL.GL import *
 from OpenGL.GL.shaders import compileProgram, compileShader
 
 
+RESOLUTION = 800
 def window_resize(window, width, height):
     glViewport(0,0,width,height)
     
@@ -38,7 +39,7 @@ def main():
   if not glfw.init():
       raise Exception("glfw can not be initialized!")
 
-  window = glfw.create_window(500, 500, "LAB1", None, None)
+  window = glfw.create_window(RESOLUTION, RESOLUTION, "LAB1", None, None)
 
   if not window:
       glfw.terminate()
@@ -66,29 +67,28 @@ def main():
         -0.27390625, -0.4223437499999999,0,
         0.34421874999999985, -0.4223437499999999,0,
     ]
-  colors = [
-            #1st
-            0,0,1,
-            0,0,1,
-            0,0,1,
+  colors = [#1st
+            0, 0.10, 0.58,
+            0, 0.10, 0.58, 
+            0, 0.10, 0.58, 
             #2nd
-            0,0,1,
-            0,0,1,
-            0,0,1,
+            0, 0.10, 0.58, 
+            0, 0.10, 0.58, 
+            0, 0.10, 0.58, 
             #3rd
-            1,0,0,
-            1,0,0,
-            1,0,0,
+            0.859, 0.078125, 0.234, 
+            0.859, 0.078125, 0.234, 
+            0.859, 0.078125, 0.234, 
             #4th
-            1,0,0,
-            1,0,0,
-            1,0,0,]
+            0.859, 0.078125, 0.234, 
+            0.859, 0.078125, 0.234, 
+            0.859, 0.078125, 0.234, 
+           ]
 
   bufferData= vertices+colors
   indicesData = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], dtype=np.uint32)
-  bufferData = np.array(bufferData,dtype=np.float32)
   vertices = np.array(vertices,dtype=np.float32)
-  print(vertices)
+  bufferData = np.array(bufferData,dtype=np.float32)
  
   shader = compileProgram(compileShader(vertex_src,GL_VERTEX_SHADER),compileShader(fragment_src,GL_FRAGMENT_SHADER))
 
@@ -107,7 +107,7 @@ def main():
   glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,0,ctypes.c_void_p(vertices.nbytes))
 
   glUseProgram(shader)
-  glClearColor(0,0.1,0.1,0)
+  glClearColor(0.1,0.1,0.1,0.1)
 
   while not glfw.window_should_close(window):
     glfw.poll_events()
